@@ -151,7 +151,7 @@ func menu() {
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam*-1, -1*tooldiam/2, depth, vfeed))
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, -1*tooldiam/2, depth, hfeed))
 					} else {
-						buf.WriteString(fmt.Sprintf("G1 X%f %f Z%f F%f\n", tooldiam+cutlenght, -1*tooldiam/2, depth, vfeed))
+						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, -1*tooldiam/2, depth, vfeed))
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam*-1, -1*tooldiam/2, depth, hfeed))
 					}
 					isDirect = !isDirect

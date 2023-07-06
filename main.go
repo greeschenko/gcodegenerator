@@ -246,8 +246,8 @@ func menu() {
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, -1*tooldiam/2, depth, hfeed))
 					    depth = depth - step
 					} else {
-						buf.WriteString(fmt.Sprintf("G0 Z%f\n", step))
-						buf.WriteString(fmt.Sprintf("G0 X%f\n", tooldiam*-1))
+						buf.WriteString(fmt.Sprintf("G1 Z%f F%f\n", depth+step*2, vfeed))
+						buf.WriteString(fmt.Sprintf("G1 X%f F%f\n", tooldiam*-1, hfeed))
 					}
 					isDirect = !isDirect
 				}
@@ -264,8 +264,8 @@ func menu() {
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, size + tooldiam/2, depth, hfeed))
 					    depth = depth - step
 					} else {
-						buf.WriteString(fmt.Sprintf("G0 Z%f\n", step))
-						buf.WriteString(fmt.Sprintf("G0 X%f\n", tooldiam*-1))
+						buf.WriteString(fmt.Sprintf("G1 Z%f F%f\n", depth+step*2, vfeed))
+						buf.WriteString(fmt.Sprintf("G1 X%f F%f\n", tooldiam*-1, hfeed))
 					}
 					isDirect = !isDirect
 				}

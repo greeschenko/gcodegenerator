@@ -201,7 +201,7 @@ func menu() {
 					step      float64
 					filename  string
 					buf       strings.Builder
-					depth     = 0.0
+					depth     = 0.00
 					isDirect  = true
 				)
 
@@ -221,8 +221,12 @@ func menu() {
 				fmt.Scan(&hfeed)
 				fmt.Print("choose step: ")
 				fmt.Scan(&step)
+
+                fmt.Println("STEP IS ", step)
+
 				fmt.Print("choose gcode filename: ")
 				fmt.Scan(&filename)
+
 
 				fmt.Println("=============== RESULT ================")
 
@@ -240,30 +244,30 @@ func menu() {
 					if isDirect {
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam*-1, -1*tooldiam/2, depth, vfeed))
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, -1*tooldiam/2, depth, hfeed))
+					    depth = depth - step
 					} else {
-						//buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, -1*tooldiam/2, depth, vfeed))
-						buf.WriteString(fmt.Sprintf("G1 X%f Y%f F%f\n", tooldiam*-1, -1*tooldiam/2, hfeed))
+						buf.WriteString(fmt.Sprintf("G0 Z%f\n", step))
+						buf.WriteString(fmt.Sprintf("G0 X%f\n", tooldiam*-1))
 					}
 					isDirect = !isDirect
-					depth = depth - step
 				}
 
 				buf.WriteString(fmt.Sprintf("G0 Z%f\n", zsafe))
 
 				buf.WriteString(fmt.Sprintf("G0 X%f Y%f\n", tooldiam*-1, size + tooldiam/2))
 
-                depth = 0.0
+                depth = 0.00
 
 				for depth >= -1*cutdepth {
 					if isDirect {
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam*-1, size + tooldiam/2, depth, vfeed))
 						buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, size + tooldiam/2, depth, hfeed))
+					    depth = depth - step
 					} else {
-						//buf.WriteString(fmt.Sprintf("G1 X%f Y%f Z%f F%f\n", tooldiam+cutlenght, size + tooldiam/2, depth, vfeed))
-						buf.WriteString(fmt.Sprintf("G1 X%f Y%f F%f\n", tooldiam*-1, size + tooldiam/2, hfeed))
+						buf.WriteString(fmt.Sprintf("G0 Z%f\n", step))
+						buf.WriteString(fmt.Sprintf("G0 X%f\n", tooldiam*-1))
 					}
 					isDirect = !isDirect
-					depth = depth - step
 				}
 
 				buf.WriteString(fmt.Sprintf("G0 Z%f\n", zsafe))
